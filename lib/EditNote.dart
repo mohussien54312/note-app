@@ -40,6 +40,7 @@ class EditeNotes extends StatelessWidget {
                 ),
               CustomTextField(hint: 'title',),
               CustomTextField(hint: 'content',max: 5),
+                Text("hello")
 
               ])),
     );
