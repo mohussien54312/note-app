@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/Component.dart';
 
 
  class CustomNote extends StatelessWidget {
-   const CustomNote({Key? key}) : super(key: key);
-
+   CustomNote({required this.Title,required this.Subtitle,required this.Date,required this.delete});
+   String ?Title;
+   String ?Subtitle;
+   String ?Date;
+   void Function()? delete;
    @override
    Widget build(BuildContext context) {
      return GestureDetector(
@@ -15,7 +19,7 @@ import 'package:flutter/material.dart';
        child: Container(
          padding: EdgeInsets.only(left: 5,bottom: 24),
          decoration: BoxDecoration(
-             color: Colors.orangeAccent[100],
+             color: Theme.of(context).colorScheme.primary,
              borderRadius: BorderRadius.circular(10)
          ),
          child: Column(
@@ -24,33 +28,36 @@ import 'package:flutter/material.dart';
              ListTile(
                title: Padding(
                  padding: const EdgeInsets.only(bottom: 12),
-                 child: Text("Flutter Tips",
+                 child: Text("$Title",
                    style: TextStyle(
                        fontSize: 29,
-                       color: Colors.black87,
+                       color: Theme.of(context).colorScheme.secondary,
                        fontWeight: FontWeight.bold
                    ),),
                ),
 
                subtitle: Padding(
                  padding: const EdgeInsets.only(bottom: 30),
-                 child: Text('Build your carrier with mohamed hussien',
+                 child: Text('$Subtitle',
                    style: TextStyle(
                        fontSize: 17,
-                       color: Colors.black87.withOpacity(0.6)
+                       color: Theme.of(context).colorScheme.secondary
                    ),),
                ),
 
-               trailing: Icon(Icons.delete,
-                 size: 30,
-                 color: Colors.black87,),),
+               trailing: InkWell(
+                 onTap: delete,
+                 child: Icon(Icons.delete,
+                   size: 30,
+                   color: Theme.of(context).colorScheme.secondary,),
+               ),),
 
 
              Padding(
                padding: const EdgeInsets.only(right: 14),
-               child: Text('March18 , 2001',
+               child: Text('$Date',
                  style: TextStyle(
-                     color: Colors.black87
+                     color: Theme.of(context).colorScheme.secondary
                  ),),
              )
            ],
@@ -68,12 +75,14 @@ class  CustomTextField extends StatelessWidget {
    String ?hint ;
    int ? max ;
    AutovalidateMode ? validate;
+    TextEditingController ? controller ;
 
-    CustomTextField({this.hint,this.max=1,this.validate});
+    CustomTextField({this.hint,this.max=1,this.validate,this.controller});
 
   @override
   Widget build(BuildContext context) {
     return  TextFormField(
+      controller: controller,
       maxLength: 30,
       autovalidateMode: validate,
       maxLines: max,
